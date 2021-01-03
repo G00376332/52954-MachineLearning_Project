@@ -30,8 +30,29 @@ from sklearn.preprocessing import PolynomialFeatures
 # To import models from file
 import joblib
 
-# Create a new web app.
-app = fl.Flask(__name__)
+# To resolve issue with keras model we have to load model to the same session 
+session = tf.Session(graph=tf.Graph())
+with session.graph.as_default():
+  keras.backend.set_session(session)
+  # Load neuron model from json file which was saved durring model evaluation in jupyter notebook
+  json_file = open('neuron.json', 'r')
+  loaded_model_json = json_file.read()
+  json_file.close()
+  m2 = keras.models.model_from_json(loaded_model_json)
+  # Load weights into new model
+  m2.load_weights("neuron.h5")
+  print("Loaded neuron model from file")
+
+# Load polynomial regression model from file which was saved durring model evaluation in jupyter notebook
+poly = PolynomialFeatures(degree = 10)
+filename = 'poly.sav'
+model = joblib.load(filename)
+print("Loaded poly model from file")
+
+# Create the Flask app
+app = Flask(__name__,
+            static_url_path='',
+            static_folder='static')
 
 # Add root route.
 @app.route("/")
