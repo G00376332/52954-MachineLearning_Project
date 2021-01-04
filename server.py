@@ -54,17 +54,38 @@ app = Flask(__name__,
             static_url_path='',
             static_folder='static')
 
-# Add root route.
 @app.route("/")
 def home():
   return app.send_static_file('index.html')
 
-# Add uniform route.
-@app.route('/api/uniform')
-def uniform():
-  return {"value": np.random.uniform()}
+# NN api response
+# curl http://127.0.0.1:5000/api/outputnn/12.52
+@app.route('/api/outputnn/<speed>')
+def outputnn(speed):
+   s = float(speed)
+   return {"outputnn" : nn_output(s)}
 
-# Add normal route.
-@app.route('/api/normal')
-def normal():
-  return {"value": np.random.normal()}
+#Poly api response
+# curl http://127.0.0.1:5000/api/outputpoly/12.52
+@app.route('/api/outputpoly/<speed>')
+def outputpoly(speed):
+   s = float(speed)
+   return {"outputpoly" : poly_output(s)}
+
+def nn_output(speed):
+
+  with session.graph.as_default():
+    keras.backend.set_session(session) 
+    try:
+      if speed > 0 and speed < 26:
+        s = np.array([speed])
+        r_neuron = m2.predict(s.tolist()).tolist()
+        return np.round(r_neuron,2).tolist()
+      else:
+        return 0
+    except:
+      return("Model Error")
+
+#Run Flask
+if __name__ == '__main__' :
+    app.run(debug= True)
