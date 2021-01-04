@@ -91,7 +91,7 @@ def nn_output(speed):
 def poly_output(speed):
 
   with session.graph.as_default():
-    keras.backend.set_session(session) 
+    keras.backend.set_session(session)
     try:
       if speed > 0 and speed < 26:
         s = np.array([speed])
