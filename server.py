@@ -15,6 +15,7 @@ Program is designed to work with folowing model files:
  - poly.sav
 
 """
+
 from flask import Flask
 import numpy as np
 # To resolve issue with keras errors and warnings we have to disable logging messages  
@@ -38,21 +39,22 @@ with session.graph.as_default():
   json_file = open('neuron.json', 'r')
   loaded_model_json = json_file.read()
   json_file.close()
-  m2 = keras.models.model_from_json(loaded_model_json)
+  mn = keras.models.model_from_json(loaded_model_json)
   # Load weights into new model
-  m2.load_weights("neuron.h5")
+  mn.load_weights("neuron.h5")
   print("Loaded neuron model from file")
 
 # Load polynomial regression model from file which was saved durring model evaluation in jupyter notebook
 poly = PolynomialFeatures(degree = 10)
 filename = 'poly.sav'
-model = joblib.load(filename)
+mp = joblib.load(filename)
 print("Loaded poly model from file")
 
 # Create the Flask app
 app = Flask(__name__,
             static_url_path='',
             static_folder='static')
+
 
 @app.route("/")
 def home():
@@ -79,8 +81,22 @@ def nn_output(speed):
     try:
       if speed > 0 and speed < 26:
         s = np.array([speed])
-        r_neuron = m2.predict(s.tolist()).tolist()
+        r_neuron = mn.predict(s.tolist()).tolist()
         return np.round(r_neuron,2).tolist()
+      else:
+        return 0
+    except:
+      return("Model Error")
+
+def poly_output(speed):
+
+  with session.graph.as_default():
+    keras.backend.set_session(session) 
+    try:
+      if speed > 0 and speed < 26:
+        s = np.array([speed])
+        r_poly = mp.predict(poly.fit_transform([s]).tolist()).tolist()
+        return np.round(r_poly,2).tolist()
       else:
         return 0
     except:
