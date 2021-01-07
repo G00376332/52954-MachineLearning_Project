@@ -56,6 +56,7 @@ The practical part includes below files:
 | Folder static| The folder that contains the website for the web server |
 | Folder Data| The folder with CSV file that was used to train the model in the Jupyter Notebook |
 
+
 Python package has to be present on the machine where this code will be run. The python version 3.7.9 was used for this project development.
 
 Download or clone this repository to your PC.
@@ -79,9 +80,32 @@ python -m flask run
 To build and run it as a Docker image: 
 
 ```bash
-docker build . -t rando-image
-docker run --name rando-container -d -p 5000:5000 rando-image
+docker build . -t mlsp-server
+docker run -d -p 5000:5000 mlsp-server
 ```
+In main folder there is alternative file for tensorflow module **tensorflow-1.15.0-cp37-cp37m-win_amd64.whl**.
+Use this file when installing requirements in case when tensorflow 1.15.0 from server doesn't work properly on your PC.
+I found very difficult to get tensorflow up and running on my machine and I had to uninstall latest version first by using
+following command:
+
+```bash
+pip uninstall tensorflow
+```
+
+Then the alternative version 1.15.0 with modified binaries has to be installed:
+
+```bash
+pip install tensorflow tensorflow-1.15.0-cp37-cp37m-win_amd64.whl
+```
+
+The same situation is when installing requirements from the file **requirements.txt**. If you have trouble there just simply swap the below line:
+
+tensorflow ====1.15.0
+
+with
+
+tensorflow @ file:///C:/**place path to your folder location**/52954-Machine_Learning_Project/tensorflow-1.15.0-cp37-cp37m-win_amd64.whl
+
 ### Web server
 
 To access web service place address  http://127.0.0.1:5000 in the web browser.
