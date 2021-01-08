@@ -25,8 +25,8 @@ To theoretical part of the project where basic information and the way how model
 There are couple of option to view this jupyther notebook file:
 
    1. The file can be downloaded locally and run on the PC with Jupyter Notebook installed
-   2. It can be viewed in the web browser on the [nbviewer](https://nbviewer.jupyter.org/github/G00376332/52954-MachineLearning/blob/main/Tasks.ipynb)
-   3. Directly on the [GitHub](https://github.com/G00376332/52954-MachineLearning/blob/master/Tasks.ipynb)
+   2. It can be viewed in the web browser on the [nbviewer](https://nbviewer.jupyter.org/github/G00376332/52954-Machine_Learning_Project/blob/main/Project.ipynb)
+   3. Directly on the [GitHub](https://github.com/G00376332/52954-Machine_Learning_Project/blob/main/Project.ipynb)
 
 ### How to install Jupyter Notebook
 
@@ -83,10 +83,11 @@ To build and run it as a Docker image:
 docker build . -t mlsp-server
 docker run -d -p 5000:5000 mlsp-server
 ```
-In main folder there is alternative file for tensorflow module **tensorflow-1.15.0-cp37-cp37m-win_amd64.whl**.
+It was very difficult to get TensorFlow up and running on my machine and I had to uninstall the latest version and install alternative file from this location: [tensorflow-1.15.0-cp37-cp37m-win_amd64.whl](https://github.com/fo40225/tensorflow-windows-wheel/raw/master/1.15.0/py37/CPU%2BGPU/cuda101cudnn76sse2/tensorflow-1.15.0-cp37-cp37m-win_amd64.whl).
+Download this file into this repository.
 Use this file when installing requirements in case when tensorflow 1.15.0 from server doesn't work properly on your PC.
-I found very difficult to get tensorflow up and running on my machine and I had to uninstall latest version first by using
-following command:
+
+Use following command:
 
 ```bash
 pip uninstall tensorflow
@@ -135,3 +136,7 @@ From CMD or any other console, you can send the request to each model using outp
 
 1. [Jupyter - Installing Jupyter Notebook](https://jupyter.readthedocs.io/en/latest/install.html)
 1. [Jupyter - nbviewer](https://nbviewer.jupyter.org/)
+1. [TensorFlow](https://www.tensorflow.org/)
+1. [Docker](https://www.docker.com/?utm_source=google&utm_medium=cpc&utm_campaign=dockerhomepage&utm_content=nemea&utm_term=dockerhomepage&utm_budget=growth&gclid=CjwKCAiAouD_BRBIEiwALhJH6OrX-7RLEJItENijE7IGMqdWJoHES1R0bSXxDxfKFWA1WjADfSxUNhoCOGEQAvD_BwE)
+1. [tensorflow-1.15.0-cp37-cp37m-win_amd64.whl](https://github.com/fo40225/tensorflow-windows-wheel/blob/master/1.15.0/py37/CPU%2BGPU/cuda101cudnn76sse2/tensorflow-1.15.0-cp37-cp37m-win_amd64.whl)
+1. [Ianmcloughlin/random-app](https://github.com/ianmcloughlin/random-app)
